@@ -1,24 +1,25 @@
 /*
- *  send_packet.c
+ *  student_ping.c
  * 
  *  Побудова і відправка IPv4 пакету із IP прапорцями (DF/MF) і користувацьким розміром ICMP.
  * 
- *  Компіляція: gcc -o send_packet send_packet.c -Wall
+ *  Компіляція: gcc -o student_ping student_ping.c -Wall
  * 
  *  Запуск (під користувачем root):
- *    sudo ./send_packet -s 1472 -f DF 8.8.8.8
+ *    sudo ./student_ping -s 1472 -f DF 8.8.8.8
  * 
  *  Коментарі:
  *  - Розмір контенту (payload) = це розмір ICMP даних (не включаючи заголовки IP/ICMP).
  *  - Повний розмір ІР-пакету = 20 (IP Header) + 8 (ICMP Header) + payload.
+ * - this example is to demonstrate students how to leverage IP Headers flags
  */
 
+// CONNECT HEADERS (LIBRARIES):
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
-
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/ip.h>      // struct iphdr
@@ -26,6 +27,7 @@
 #include <netinet/in.h>
 #include <sys/types.h>
 
+// CONSTANTS:
 #define IP_HDRLEN 20
 #define ICMP_HDRLEN 8
 
